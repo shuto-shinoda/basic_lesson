@@ -3,6 +3,7 @@
 import React, {useState, useEffect} from 'react';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import CleanUp from './CleanUp';
 
 // React.FC(React.FunctionComponent):型引数で渡した型と共にchildren?: React.ReactNodeというpropsを受け取ることができます。
 // children: 受け取った子要素を出力する
@@ -12,6 +13,7 @@ const App: React.FC = () => {
   // eventオブジェクトのデータ型(input)
   const [input, setInput] = useState("");
   const [counter,setCounter] = useState(0);
+  const [display,setDisplay] = useState(true);
 
   // eventオブジェクトを受け取ってinput stateを更新
   const onChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,10 @@ const App: React.FC = () => {
         <button onClick={()=>setCounter((preCounter)=>preCounter+1)}>
           Increment
         </button>
+        {/* CleanUpコンポーネントを呼び出し
+        displayのstateがtreuの時だけマウントされる */}
+        {display && <CleanUp />}
+        <button onClick={() => setDisplay(!display)}>Toggle display</button>
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
